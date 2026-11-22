@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+  html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: {{BG}};
+  }
+  #stage, #hotspots, #loading { position: fixed; inset: 0; }
+  #stage { display: block; width: 100%; height: 100%; z-index: 1; }
+  /* Particle layer: transparent canvas over the stage (no blend modes). */
+  #fx { display: contents; }
+  #fxCanvas {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  #hotspots { pointer-events: none; overflow: hidden; z-index: 4; }
+  .hotspot {
+    position: absolute;
+    box-sizing: border-box;
+    border: 1px solid #ff88ae;
+  }
+  #subtitle {
+    position: fixed;
+    left: 50%;
+    bottom: 6%;
+    transform: translateX(-50%);
+    z-index: 5;
+    max-width: min(72vw, 52rem);
+    margin: 0;
+    padding: 0.75rem 1.25rem;
+    pointer-events: none;
+    text-align: center;
+    color: #fff8f0;
+    font: 500 1.05rem/1.55 "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    text-shadow: 0 1px 2px rgba(0,0,0,.85), 0 0 12px rgba(0,0,0,.45);
+    background: linear-gradient(180deg, rgba(20,12,8,.15), rgba(20,12,8,.55));
+    border-radius: 0.4rem;
+  }
+  #loading {
+    display: grid;
+    place-items: center;
+    color: #eee3eb;
+    background: #14100d;
+    font: 14px system-ui, sans-serif;
+    z-index: 6;
+  }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+<div id="fx" aria-hidden="true"><canvas id="fxCanvas"></canvas></div>
+<div id="hotspots" aria-hidden="true" hidden></div>
+<p id="subtitle" hidden aria-live="polite"></p>
+<div id="loading" role="status">正在加载壁纸…</div>
+<script src="js/spine-webgl-3.8.js"></script>
+<script src="js/skin.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
